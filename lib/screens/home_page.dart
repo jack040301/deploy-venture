@@ -2,17 +2,17 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:fab_circular_menu/fab_circular_menu.dart';
-import 'package:flip_card/flip_card.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:flutter_rating_stars/flutter_rating_stars.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:main_venture/models/auto_complete_results.dart';
 import 'package:main_venture/providers/search_places.dart';
 import 'package:main_venture/services/maps_services.dart';
 
-import 'dart:ui' as ui;
+//import 'dart:ui' as ui;
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
 
 //Debounce to throttle async calls during search
   Timer? _debounce;
@@ -42,11 +42,11 @@ class _HomePageState extends ConsumerState<HomePage> {
 
 // Text Editing Controllers
   TextEditingController searchController = TextEditingController();
-  TextEditingController _originController = TextEditingController();
-  TextEditingController _destinationController = TextEditingController();
+  final TextEditingController _originController = TextEditingController();
+  final TextEditingController _destinationController = TextEditingController();
 
 // initial map position on load
-  static final CameraPosition _kGooglePlex = CameraPosition(
+  static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.4279613380664, -122.085749655962),
     zoom: 14.4746,
   );
@@ -105,7 +105,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
                 searchToggle
                     ? Padding(
-                        padding: EdgeInsets.fromLTRB(15.0, 40.0, 15.0, 5.0),
+                        padding:
+                            const EdgeInsets.fromLTRB(15.0, 40.0, 15.0, 5.0),
                         child: Column(children: [
                           Container(
                             height: 50.0,
@@ -116,7 +117,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             child: TextFormField(
                               controller: searchController,
                               decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
+                                  contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 20.0, vertical: 15.0),
                                   border: InputBorder.none,
                                   hintText: 'Search',
@@ -129,12 +130,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                                           searchFlag.toggleSearch();
                                         });
                                       },
-                                      icon: Icon(Icons.close))),
+                                      icon: const Icon(Icons.close))),
                               onChanged: (value) {
-                                if (_debounce?.isActive ?? false)
+                                if (_debounce?.isActive ?? false) {
                                   _debounce?.cancel();
-                                _debounce = Timer(Duration(milliseconds: 700),
-                                    () async {
+                                }
+                                _debounce =
+                                    Timer(const Duration(milliseconds: 700),
+                                        () async {
                                   if (value.length > 2) {
                                     if (!searchFlag.searchToggle) {
                                       searchFlag.toggleSearch();
@@ -186,18 +189,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                               child: Center(
                                 child: Column(
                                   children: [
-                                    Text('No results to show',
+                                    const Text('No results to show',
                                         style: TextStyle(
                                             fontFamily: 'WorkSans',
                                             fontWeight: FontWeight.w400)),
-                                    SizedBox(height: 5.0),
+                                    const SizedBox(height: 5.0),
                                     Container(
                                       width: 125.0,
                                       child: ElevatedButton(
                                         onPressed: () {
                                           searchFlag.toggleSearch();
                                         },
-                                        child: Center(
+                                        child: const Center(
                                           child: Text(
                                             'Close this',
                                             style: TextStyle(
@@ -215,7 +218,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     : Container(),
                 getDirections
                     ? Padding(
-                        padding: EdgeInsets.fromLTRB(15.0, 40.0, 15.0, 5),
+                        padding: const EdgeInsets.fromLTRB(15.0, 40.0, 15.0, 5),
                         child: Column(
                           children: [
                             Container(
@@ -226,7 +229,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               ),
                               child: TextFormField(
                                 controller: _originController,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
                                       horizontal: 20.0, vertical: 15.0),
                                   border: InputBorder.none,
@@ -234,7 +237,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 3.0),
+                            const SizedBox(height: 3.0),
                             Container(
                               height: 50.0,
                               decoration: BoxDecoration(
@@ -244,7 +247,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               child: TextFormField(
                                 controller: _destinationController,
                                 decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(
+                                    contentPadding: const EdgeInsets.symmetric(
                                         horizontal: 20.0, vertical: 15.0),
                                     border: InputBorder.none,
                                     hintText: 'Destination',
@@ -278,7 +281,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                 _setPolyline(directions[
                                                     'polyline_deoded']);
                                               },
-                                              icon: Icon(Icons.search)),
+                                              icon: const Icon(Icons.search)),
                                           IconButton(
                                               onPressed: () {
                                                 setState(() {
@@ -288,7 +291,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                       '';
                                                 });
                                               },
-                                              icon: Icon(Icons.close))
+                                              icon: const Icon(Icons.close))
                                         ],
                                       ),
                                     )),
@@ -322,7 +325,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     getDirections = false;
                   });
                 },
-                icon: Icon(Icons.search)),
+                icon: const Icon(Icons.search)),
             IconButton(
                 onPressed: () {
                   setState(() {
@@ -333,7 +336,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     getDirections = true;
                   });
                 },
-                icon: Icon(Icons.navigation))
+                icon: const Icon(Icons.navigation))
           ]),
     );
   }
@@ -362,7 +365,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   Widget buildListItem(AutoCompleteResult placeItem, searchFlag) {
     return Padding(
-      padding: EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(5.0),
       child: GestureDetector(
         onTapDown: (_) {
           FocusManager.instance.primaryFocus?.unfocus();
@@ -376,8 +379,8 @@ class _HomePageState extends ConsumerState<HomePage> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(Icons.location_on, color: Colors.green, size: 25.0),
-            SizedBox(width: 4.0),
+            const Icon(Icons.location_on, color: Colors.green, size: 25.0),
+            const SizedBox(width: 4.0),
             Container(
               height: 40.0,
               width: MediaQuery.of(context).size.width - 75.0,
