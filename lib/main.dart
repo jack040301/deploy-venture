@@ -1,8 +1,10 @@
 // ignore_for_file: unnecessary_const, empty_catches
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:main_venture/auth_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 /* import 'package:main_venture/auth_screens/signup.dart';
 import 'package:main_venture/navigation.dart';
 import 'package:main_venture/dialog.dart';
@@ -14,10 +16,30 @@ import 'package:lottie/lottie.dart';
 void main() async {
   /// initialize FireBase App
   ///
+  //WidgetsFlutterBinding.ensureInitialized();
+/* 
+  if (Platform.isAndroid) {
+    await Firebase.initializeApp();
+  } else if (Platform.isIOS) {
+    await Firebase.initializeApp();
+  } else {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyBMe8TM-W8OCDGow_lrZpgsoWt4EJgwNpM",
+          authDomain: "venture-1495b.firebaseapp.com",
+          databaseURL: "venture-1495b",
+          projectId: "YOUR-PROJECT-FIREBASE-PROJECT-ID",
+          storageBucket: "venture-1495b.appspot.com",
+          messagingSenderId: "798395571180",
+          appId: "1:798395571180:web:e9f693d9bc99ae2371bec9"),
+    );
+  } */
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  //runApp(const MyApp());
-  runApp(const ProviderScope(child: MyApp()));
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MyApp());
+  // runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -29,7 +51,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Venture",
       theme: ThemeData(fontFamily: 'Questrial'),
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

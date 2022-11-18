@@ -14,19 +14,27 @@ class AuthScreen extends StatefulWidget {
 //singInWithGoogle
   signInWithGoogle() async {
     //trigger the authentication flow
-    final GoogleSignInAccount? googleUser =
-        await GoogleSignIn(scopes: <String>["email"]).signIn();
 
-    //obtain the auth details from the internet
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken);
+
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } else {
+      print("error");
+    }
 
     //create a new credential
-    final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
 
     //once signed in, return the user credential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }
 

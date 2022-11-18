@@ -7,7 +7,8 @@
         {
             "name": "main_venture",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": ["-d", "chrome","--web-port", "7357"],
         },
         {
             "name": "main_venture (profile mode)",

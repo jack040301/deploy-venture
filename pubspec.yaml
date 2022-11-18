@@ -48,11 +48,12 @@ dependencies:
   flutter_rating_stars:
   flip_card:
 
-  firebase_core: ^2.1.1
+  firebase_core: ^2.2.0
   firebase_auth: ^4.1.1
   google_sign_in: ^5.4.2
   flutter_bloc: ^8.1.0
   cloud_firestore: ^4.0.5
+  flutterfire_ui: ^0.4.3+20
 
 dev_dependencies:
   flutter_launcher_icons: ^0.10.0
@@ -92,7 +93,7 @@ flutter:
     - assets/images/google.png
     - assets/images/pic.png
 
-    - assets/images/google2.png
+    - assets/images/
     - assets/images/VentureLogo.png
 
 
