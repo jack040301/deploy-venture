@@ -10,6 +10,7 @@ import 'package:main_venture/dialogbutton.dart';*/
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter/services.dart';
 
 import 'firebase_options.dart';
 
@@ -35,6 +36,10 @@ void main() async {
     );
   } */
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
